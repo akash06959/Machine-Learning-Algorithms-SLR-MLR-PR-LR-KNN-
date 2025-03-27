@@ -251,14 +251,14 @@ def predict(model_name):
         elif model_name == 'pr':
             # Predict Gross Revenue based on IMDb Rating only
             try:
-            model_data = models[model_name]
+                model_data = models[model_name]
                 
                 # Extract IMDb Rating
                 imdb_rating = float(data['features'][0])
-            
+                
                 # Input validation
-            if imdb_rating < 1 or imdb_rating > 10:
-                return jsonify({'error': 'IMDb Rating must be between 1 and 10'}), 400
+                if imdb_rating < 1 or imdb_rating > 10:
+                    return jsonify({'error': 'IMDb Rating must be between 1 and 10'}), 400
                 
                 # Create feature vector
                 features = pd.DataFrame({
@@ -266,8 +266,8 @@ def predict(model_name):
                 })
                 
                 # Transform features
-            scaled_features = model_data['scaler'].transform(features)
-            poly_features = model_data['poly'].transform(scaled_features)
+                scaled_features = model_data['scaler'].transform(features)
+                poly_features = model_data['poly'].transform(scaled_features)
                 
                 # Predict
                 prediction_log = model_data['model'].predict(poly_features)[0]
@@ -290,7 +290,7 @@ def predict(model_name):
                     max_revenue = 300_000_000  # $300M max for very good ratings
                 elif imdb_rating <= 9.0:
                     max_revenue = 800_000_000  # $800M max for excellent ratings
-            else:
+                else:
                     max_revenue = 1_500_000_000  # $1.5B max for exceptional ratings
                 
                 # Apply minimum revenue based on rating
